@@ -1,0 +1,16 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.title {
+	text-align: center;
+}
+.message {
+	text-align: center;
+}
+.scroll {
+	overflow-y: auto;
+	height: 220px;
+	gap: 20px;
+}
