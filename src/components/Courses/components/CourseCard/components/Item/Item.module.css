@@ -1,0 +1,10 @@
+.wrapper {
+	display: flex;
+	gap: 0.5rem;
+}
+.text_ellipsis {
+	white-space: nowrap;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

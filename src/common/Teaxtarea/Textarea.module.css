@@ -1,0 +1,15 @@
+.textarea {
+	border: 1.5px solid rgb(251, 240, 92);
+	width: 100%;
+	padding: 15px 15px;
+}
+
+.textarea:focus-visible {
+	outline: rgb(17, 255, 0) auto 2px;
+}
+.hidden {
+	display: none;
+}
+.display {
+	display: block;
+}

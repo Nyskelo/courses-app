@@ -1,0 +1,6 @@
+.form {
+	display: grid;
+	grid-template-columns: 2fr 100px;
+	width: 100%;
+	gap: 10px;
+}

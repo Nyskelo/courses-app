@@ -1,0 +1,13 @@
+.element {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 15%;
+	margin-bottom: 10px;
+}
+
+
+@media (max-width: 715px) {
+	.element {
+		flex-direction: column;
+	}
+}
