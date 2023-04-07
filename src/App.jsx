@@ -20,17 +20,7 @@ const App = () => {
 			<Header />
 			{<article>learn react</article>}
 
-			{!isDisplayed && (
-				<Courses courses={courses} authorsList={authorsList}>
-					<Button
-						width='large'
-						onClick={() => setIsDisplayed(!isDisplayed)}
-						text='Add new course'
-					/>
-				</Courses>
-			)}
-
-			{isDisplayed && (
+			{isDisplayed ? (
 				<CreateCourse
 					courses={courses}
 					setCourses={setCourses}
@@ -38,6 +28,14 @@ const App = () => {
 					setAuthorsList={setAuthorsList}
 					isDisplayed={() => setIsDisplayed(!isDisplayed)}
 				/>
+			) : (
+				<Courses courses={courses} authorsList={authorsList}>
+					<Button
+						width='large'
+						onClick={() => setIsDisplayed(!isDisplayed)}
+						text='Add new course'
+					/>
+				</Courses>
 			)}
 		</>
 	);

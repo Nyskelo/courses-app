@@ -12,18 +12,18 @@ export const useDataValidation = (message, regex) => {
 		const value = event.target.value;
 		const check = value.match(regex);
 		if (check) {
-			setState((prev) => ({
-				...prev,
+			setState({
+				...state,
 				value: value,
 				error: false,
-			}));
+			});
 			return true;
 		} else {
-			setState((prev) => ({
-				...prev,
+			setState({
+				...state,
 				message: message,
 				error: true,
-			}));
+			});
 			return false;
 		}
 	};
@@ -40,5 +40,5 @@ export const useDataValidation = (message, regex) => {
 		}
 	}, [state.error]);
 
-	return [handleState, state];
+	return [state, handleState];
 };

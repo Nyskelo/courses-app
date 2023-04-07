@@ -14,10 +14,10 @@ const AddDetails = ({ update }) => {
 			<CreateAuthor
 				value={update.author.name}
 				onChange={(e) => {
-					update.handleTitle(e) && update.setAuthorName(e);
+					update.setTitle(e) && update.setAuthorName(e);
 				}}
 				onClick={(e) => {
-					update.createAuthor(e) || update.handleTitle(e);
+					update.createAuthor(e) || update.setTitle(e);
 				}}
 				title={update.title}
 			/>
@@ -28,7 +28,7 @@ const AddDetails = ({ update }) => {
 				onClick={update.addAuthor}
 			/>
 			<Duration
-				onChange={(e) => update.handleDuration(e)}
+				onChange={(e) => update.setDuration(e)}
 				value={update.duration.value}
 				duration={update.duration}
 				hours={fn.minutesToHoures(update.duration.value)}

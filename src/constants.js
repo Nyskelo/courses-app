@@ -5,7 +5,7 @@ export const VALID = {
 	},
 	title: {
 		messageError: 'Please match the requested format.',
-		regex: /([A-Z]{1,}).*/g,
+		regex: /([A-Za-z]{1,}).*/g,
 	},
 	form: {
 		messageError: 'Please, fill in all fields.',

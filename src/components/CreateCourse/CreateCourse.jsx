@@ -21,11 +21,11 @@ const CreateCourse = ({
 }) => {
 	const [inputs, setInputs] = useState({ title: '', descriptions: '' });
 
-	const [handleDuration, duration] = useDataValidation(
+	const [duration, setDuration] = useDataValidation(
 		VALID.duration.messageError,
 		VALID.duration.regex
 	);
-	const [handleTitle, title] = useDataValidation(
+	const [title, setTitle] = useDataValidation(
 		VALID.title.messageError,
 		VALID.title.regex
 	);
@@ -78,9 +78,9 @@ const CreateCourse = ({
 					createAuthor,
 					addAuthor,
 					deleteAuthor,
-					handleDuration,
+					setDuration,
 					duration,
-					handleTitle,
+					setTitle,
 					title,
 				}}
 			></AddDetails>
