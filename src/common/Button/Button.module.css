@@ -1,14 +1,19 @@
 button {
-	padding: 5px 15px;
+	padding: 0 15px;
 	background: transparent;
 	border: 1.5px solid #d90debb3;
 	cursor: pointer;
-	height: 28px;
+	height: 35px;
 	transition: all 150ms ease-in-out;
+	margin-top: 5px;
 }
 .large {
 	width: 100%;
-	max-width: 150px;
+	max-width: 160px;
+}
+.medium {
+	width: 100%;
+	max-width: 130px;
 }
 .small {
 	width: 100%;

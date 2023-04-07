@@ -1,0 +1,10 @@
+.form {
+	display: grid;
+	justify-content: center;
+	gap: 25px;
+	grid-auto-columns: 300px;
+}
+.form button,
+h1 {
+	justify-self: center;
+}

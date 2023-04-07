@@ -1,0 +1,13 @@
+.main__wrapper {
+	display: grid;
+	grid-template-columns: 1fr 30%;
+	grid-gap: 10vw;
+	padding: 50px 20px;
+	text-align: left;
+}
+@media (max-width: 615px) {
+	.main__wrapper {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+}

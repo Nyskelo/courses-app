@@ -1,7 +1,10 @@
 .textarea {
+	margin-top: 5px;
 	border: 1.5px solid rgb(251, 240, 92);
 	width: 100%;
 	padding: 15px 15px;
+	margin-top: 5px;
+	white-space: pre-wrap;
 }
 
 .textarea:focus-visible {

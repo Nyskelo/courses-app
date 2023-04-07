@@ -1,4 +1,16 @@
 .error {
 	color: red;
-    font-size: small;
+	font-size: small;
+}
+.info {
+	color: rgb(40, 40, 40);
+	font-size: small;
+	text-align: center;
+}
+.userName {
+	font-size: large;
+	font-weight: 700;
+	text-align: end;
+	padding-right: 10px;
+	word-wrap: break-word;
 }
