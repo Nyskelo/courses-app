@@ -7,16 +7,25 @@ import { Logo } from './components/Logo/Logo';
 import { TypeHeader } from '../../types/types';
 
 import styles from './Header.module.css';
+import { useEffect } from 'react';
 
-const Header = ({ ...props }: TypeHeader): JSX.Element => {
+const Header: React.FC<TypeHeader> = ({ ...props }): JSX.Element => {
 	const navigate = useNavigate();
 
 	const logout = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		localStorage.removeItem(props.user.email);
+		localStorage.removeItem('USER');
 		props.setUser({ ...props.user, isLoggedIn: false });
 		navigate('/login');
 	};
+
+	useEffect(() => {
+		localStorage.getItem('USER') && navigate('/courses');
+
+		!props.user.isLoggedIn &&
+			!localStorage.getItem('USER') &&
+			navigate('/registration');
+	}, []);
 
 	return (
 		<header className={styles.wrapper}>

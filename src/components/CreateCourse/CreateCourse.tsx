@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -14,7 +14,9 @@ import { TypeCreateCourse, TypeAddDetails } from '../../types/types';
 
 import styles from './CreateCourse.module.css';
 
-const CreateCourse = ({ ...props }: TypeCreateCourse): JSX.Element => {
+const CreateCourse: React.FC<TypeCreateCourse> = ({
+	...props
+}): JSX.Element => {
 	const navigate = useNavigate();
 	const [inputs, setInputs] = useState({ title: '', descriptions: '' });
 
@@ -75,6 +77,10 @@ const CreateCourse = ({ ...props }: TypeCreateCourse): JSX.Element => {
 		checkName,
 		setCheckName,
 	};
+
+	useEffect(() => {
+		!localStorage.getItem('USER') && navigate('/login');
+	}, []);
 
 	return (
 		<form

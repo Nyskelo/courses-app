@@ -10,7 +10,7 @@ import { TypeCourseCard } from '../../../../types/types';
 
 import styles from './CourseCard.module.css';
 
-const CourseCard = ({ ...props }: TypeCourseCard): JSX.Element => {
+const CourseCard: React.FC<TypeCourseCard> = ({ ...props }): JSX.Element => {
 	const navigate = useNavigate();
 	return (
 		<div className={styles.main__wrapper}>

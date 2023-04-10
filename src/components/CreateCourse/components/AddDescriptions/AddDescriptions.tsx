@@ -4,7 +4,9 @@ import { TypeAddDescriptions } from '../../../../types/types';
 
 import styles from './AddDescriptions.module.css';
 
-const AddDescriptions = ({ ...props }: TypeAddDescriptions): JSX.Element => {
+const AddDescriptions: React.FC<TypeAddDescriptions> = ({
+	...props
+}): JSX.Element => {
 	return (
 		<div className={styles.wrapper}>
 			<Textarea

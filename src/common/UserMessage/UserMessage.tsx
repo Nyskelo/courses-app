@@ -2,7 +2,10 @@ import { TypeUserMessage } from '../../types/types';
 
 import styles from './UserMessage.module.css';
 
-const UserMessage = ({ text = '', ...props }: TypeUserMessage): JSX.Element => {
+const UserMessage: React.FC<TypeUserMessage> = ({
+	text = '',
+	...props
+}): JSX.Element => {
 	return (
 		<p className={styles[props.messageType]}>
 			{text} {props.children}

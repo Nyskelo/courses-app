@@ -12,7 +12,9 @@ import { TypeRegistration } from '../../types/types';
 
 import styles from './Registration.module.css';
 
-const Registration = ({ ...props }: TypeRegistration): JSX.Element => {
+const Registration: React.FC<TypeRegistration> = ({
+	...props
+}): JSX.Element => {
 	const navigate = useNavigate();
 
 	const dataUser = {
@@ -24,22 +26,21 @@ const Registration = ({ ...props }: TypeRegistration): JSX.Element => {
 	const userToFetch = useFetch({
 		method: 'post',
 		url: 'http://localhost:4000/register',
-		body: JSON.stringify(dataUser),
+		body: dataUser,
 	});
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!formValidation(dataUser, 'Please fill in valid data.')) {
-			return false;
+		if (formValidation(dataUser, 'Please fill in valid data.')) {
+			userToFetch.setStart(true);
 		}
-		userToFetch.setStart(true);
 	};
 
 	useEffect(() => {
 		if (userToFetch.status === 201) {
 			navigate('/login');
 		}
-	}, [userToFetch, navigate]);
+	}, [userToFetch.status]);
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit}>

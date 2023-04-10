@@ -35,6 +35,7 @@ module.exports = {
 				'max-len': ['error', { code: 80 }],
 			},
 		],
+		"react/prop-types": "off",
 		'react/react-in-jsx-scope': 'off',
 		'no-restricted-imports': 'off',
 		'@typescript-eslint/no-restricted-imports': [

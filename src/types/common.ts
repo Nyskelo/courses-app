@@ -4,7 +4,7 @@ export type TypeButton = {
 	width: string;
 };
 
-type TypeButtonExtra =
+export type TypeButtonExtra =
 	| React.HTMLAttributes<HTMLButtonElement>
 	| string
 	| (() => void)

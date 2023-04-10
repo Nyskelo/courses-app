@@ -39,6 +39,7 @@ export type TypeCreateCourse = {
 	authorsList: Array<Author>;
 	setCourses: (value: React.SetStateAction<Array<Course>>) => void;
 	setAuthorsList: (value: React.SetStateAction<Array<Author>>) => void;
+	user: boolean;
 };
 
 export type TypeAddTitle = {

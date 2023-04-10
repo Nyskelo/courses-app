@@ -15,8 +15,9 @@ export type TypeUseFetchReq = {
 	method: 'get' | 'post' | 'put' | 'delete';
 	url: string;
 	start?: boolean | undefined;
-	body?: string | null | undefined;
-	headers?: string | null | undefined;
+	body?: object | undefined;
+	headers?: object;
+	auth?: object;
 };
 
 export type TypeUseFetchRes = {

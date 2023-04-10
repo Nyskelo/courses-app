@@ -1,12 +1,9 @@
 import styles from './Item.module.css';
 
-const DetailsItem = ({
-	title,
-	value,
-}: {
+const DetailsItem: React.FC<{
 	title: string;
 	value: string;
-}): JSX.Element => {
+}> = ({ title, value }): JSX.Element => {
 	return (
 		<section className={styles.wrapper}>
 			<h4>{title}</h4>

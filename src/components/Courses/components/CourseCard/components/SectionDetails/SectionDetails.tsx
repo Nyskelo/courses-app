@@ -4,7 +4,7 @@ type Props = {
 	children: string | JSX.Element | JSX.Element[];
 };
 
-const SectionDetails = ({ children }: Props): JSX.Element => (
+const SectionDetails: React.FC<Props> = ({ children }): JSX.Element => (
 	<div className={styles.wrapper}>{children}</div>
 );
 

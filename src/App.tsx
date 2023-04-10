@@ -1,10 +1,5 @@
-import React, { useState } from 'react';
-import {
-	BrowserRouter as Router,
-	Routes,
-	Route,
-	Navigate,
-} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/CreateCourse/CreateCourse';
@@ -28,6 +23,13 @@ const App = () => {
 		isLoggedIn: false,
 	});
 
+	useEffect(() => {
+		if (localStorage.getItem('USER')) {
+			const name = JSON.parse(localStorage.getItem('NAME') as string);
+			setUser({ ...user, isLoggedIn: true, name: name });
+		}
+	}, []);
+
 	return (
 		<>
 			<Router>
@@ -47,38 +49,27 @@ const App = () => {
 					<Route
 						path='/courses/:courseId'
 						element={
-							user.isLoggedIn ? (
-								<CourseInfo courses={coursesList} authorsList={authorsList} />
-							) : (
-								<Navigate to='/registration' />
-							)
+							<CourseInfo courses={coursesList} authorsList={authorsList} />
 						}
 					/>
 
 					<Route
 						path='/courses'
 						element={
-							user.isLoggedIn ? (
-								<Courses courses={coursesList} authorsList={authorsList} />
-							) : (
-								<Navigate to='/registration' />
-							)
+							<Courses courses={coursesList} authorsList={authorsList} />
 						}
 					/>
 
 					<Route
 						path='/courses/add'
 						element={
-							user.isLoggedIn ? (
-								<CreateCourse
-									courses={coursesList}
-									setCourses={setCourses}
-									authorsList={authorsList}
-									setAuthorsList={setAuthors}
-								/>
-							) : (
-								<Navigate to='/registration' />
-							)
+							<CreateCourse
+								courses={coursesList}
+								setCourses={setCourses}
+								authorsList={authorsList}
+								setAuthorsList={setAuthors}
+								user={user.isLoggedIn}
+							/>
 						}
 					/>
 				</Routes>

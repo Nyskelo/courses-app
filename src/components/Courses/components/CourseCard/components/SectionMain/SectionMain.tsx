@@ -2,7 +2,7 @@ import { TypeSectionMain } from '../../../../../../types/types';
 
 import styles from './SectionMain.module.css';
 
-const SectionMain = ({ ...props }: TypeSectionMain): JSX.Element => {
+const SectionMain: React.FC<TypeSectionMain> = ({ ...props }): JSX.Element => {
 	return (
 		<section className={styles.wrapper}>
 			<h1 className={styles.title}>{props.title}</h1>

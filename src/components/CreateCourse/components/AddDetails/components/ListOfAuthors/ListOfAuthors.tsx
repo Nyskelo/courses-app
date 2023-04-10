@@ -3,7 +3,7 @@ import { TypeListOfAuthors } from '../../../../../../types/types';
 
 import styles from './ListOfAuthors.module.css';
 
-const ListOfAuthors = ({ ...props }: TypeListOfAuthors) => {
+const ListOfAuthors: React.FC<TypeListOfAuthors> = ({ ...props }) => {
 	return (
 		<section className={styles.wrapper}>
 			<h1 className={styles.title}>{props.textTitle}</h1>

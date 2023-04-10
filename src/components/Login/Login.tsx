@@ -12,7 +12,7 @@ import { TypeLogin } from '../../types/types';
 
 import styles from './Login.module.css';
 
-const Login = ({ ...props }: TypeLogin): JSX.Element => {
+const Login: React.FC<TypeLogin> = ({ ...props }): JSX.Element => {
 	const navigate = useNavigate();
 
 	const dataUser = {
@@ -28,12 +28,14 @@ const Login = ({ ...props }: TypeLogin): JSX.Element => {
 	const tokenUser = useFetch({
 		method: 'post',
 		url: 'http://localhost:4000/login',
-		body: JSON.stringify(dataUser),
+		body: dataUser,
+		auth: { username: '', password: login.password },
 	});
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!formValidation(dataUser)) return;
+		if (!formValidation(login)) return;
+
 		props.setUser({
 			...props.user,
 			...login,
@@ -43,7 +45,8 @@ const Login = ({ ...props }: TypeLogin): JSX.Element => {
 
 	useEffect(() => {
 		if (tokenUser.status === 201) {
-			window.localStorage.setItem(props.user.email, `${tokenUser.data}`);
+			localStorage.setItem('USER', `${tokenUser.data}`);
+			localStorage.setItem('NAME', JSON.stringify(dataUser.name));
 			props.setUser({ ...props.user, isLoggedIn: true });
 			navigate('/courses');
 		}

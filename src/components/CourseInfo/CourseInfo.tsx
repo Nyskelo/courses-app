@@ -5,13 +5,14 @@ import styles from './CourseInfo.module.css';
 import InfoCard from './InfoCard/InfoCard';
 
 import { TypeCourse } from '../../types/types';
+import { useMemo } from 'react';
 
-const CourseInfo = ({ courses, authorsList }: TypeCourse) => {
+const CourseInfo: React.FC<TypeCourse> = ({ courses, authorsList }) => {
 	const { courseId } = useParams();
 	const navigate = useNavigate();
 
 	const course = courses.filter(({ id }) => id === courseId);
-	const title = course.map(({ title }) => title);
+	const title = useMemo(() => course.map(({ title }) => title), [course]);
 
 	return (
 		<section className={styles.wrapper}>

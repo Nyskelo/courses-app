@@ -7,8 +7,9 @@ export function useFetch({
 	method,
 	url,
 	start = false,
-	body = null,
-	headers = null,
+	body,
+	headers = { headers: { 'Content-Type': 'application/json' } },
+	auth,
 }: TypeUseFetchReq): TypeUseFetchRes {
 	const [data, setData] = useState();
 	const [status, setStatus] = useState<AxiosResponse['status']>();
@@ -19,11 +20,7 @@ export function useFetch({
 	const fetchData = useCallback(() => {
 		setLoading(true);
 
-		return axios[method](
-			url,
-			body ? JSON.parse(body) : '',
-			headers ? JSON.parse(headers) : ''
-		)
+		return axios[method](url, body ?? body, auth ? auth : headers)
 			.then((res) => {
 				setStatus(res.status);
 				setData(res.data.result);
@@ -42,7 +39,7 @@ export function useFetch({
 		if (starting) {
 			fetchData();
 		}
-	}, [starting, fetchData]);
+	}, [starting]);
 
 	return { data, loading, error, setStart, status };
 }

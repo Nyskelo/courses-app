@@ -2,12 +2,12 @@ import { TypeInput } from '../../types/types';
 
 import styles from './Input.module.css';
 
-const Input = ({
+const Input: React.FC<TypeInput> = ({
 	name,
 	labelText,
 	labelVisibility,
 	...props
-}: TypeInput): JSX.Element => {
+}): JSX.Element => {
 	return (
 		<div>
 			<label htmlFor={name} className={styles[labelVisibility]}>

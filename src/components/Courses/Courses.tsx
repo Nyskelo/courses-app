@@ -8,7 +8,10 @@ import { TypeCourse } from '../../types/types';
 
 import styles from './Courses.module.css';
 
-const Courses = ({ courses, authorsList }: TypeCourse): JSX.Element => {
+const Courses: React.FC<TypeCourse> = ({
+	courses,
+	authorsList,
+}): JSX.Element => {
 	const navigate = useNavigate();
 	const [sortedCourses, setSortedCourses] = useState(courses);
 	const [searchInput, setSearchInput] = useState('');
@@ -32,6 +35,9 @@ const Courses = ({ courses, authorsList }: TypeCourse): JSX.Element => {
 		!searchInput && setSortedCourses(getFilteredCourses);
 	}, [searchInput, getFilteredCourses]);
 
+	useEffect(() => {
+		localStorage.getItem('USER') ? navigate('/courses') : navigate('/login');
+	}, []);
 	return (
 		<>
 			<nav className={styles.nav}>

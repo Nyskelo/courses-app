@@ -2,12 +2,12 @@ import { TypeTextarea } from '../../types/types';
 
 import styles from './Textarea.module.css';
 
-const Textarea = ({
+const Textarea: React.FC<TypeTextarea> = ({
 	name,
 	labelVisibility,
 	labelText,
 	...props
-}: TypeTextarea): JSX.Element => {
+}): JSX.Element => {
 	return (
 		<>
 			<label htmlFor={name} className={styles[labelVisibility]}>

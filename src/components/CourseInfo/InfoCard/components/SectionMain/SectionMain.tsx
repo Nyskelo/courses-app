@@ -1,10 +1,7 @@
-const SectionMain = ({
-	title,
-	description,
-}: {
+const SectionMain: React.FC<{
 	title?: string;
 	description: string;
-}): JSX.Element => {
+}> = ({ title, description }): JSX.Element => {
 	return (
 		<section>
 			<h1>{title}</h1>

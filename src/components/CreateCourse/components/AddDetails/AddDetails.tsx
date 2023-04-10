@@ -7,7 +7,7 @@ import { TypeAddDetails, ValidState } from '../../../../types/types';
 
 import styles from './AddDetails.module.css';
 
-const AddDetails = ({ ...props }: TypeAddDetails) => {
+const AddDetails: React.FC<TypeAddDetails> = ({ ...props }) => {
 	const onClickCreateAuthor = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
 		if (!props.checkName.error && props.checkName.value.length >= 2) {
