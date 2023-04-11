@@ -1,0 +1,14 @@
+.wrapper {
+	text-align: center;
+	border: 1.5px solid rgb(66, 166, 202);
+	padding: 10px;
+}
+.wrapper button {
+	border: none;
+	display: flex;
+	align-items: center;
+}
+.title{
+	font-size:xx-large;
+	font-weight: 600;
+}

@@ -4,13 +4,24 @@
 	"private": true,
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.16.5",
-		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^13.5.0",
+		"@types/node": "^18.15.3",
+		"@types/react": "^18.0.28",
+		"@types/react-dom": "^18.0.11",
+		"@types/react-redux": "^7.1.25",
+		"@types/react-router-dom": "^5.3.3",
+		"@types/uuid": "^9.0.1",
+		"axios": "^1.3.4",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-redux": "^8.0.5",
 		"react-router-dom": "^6.9.0",
 		"react-scripts": "5.0.1",
-		"uuid": "^8.3.2",
+		"redux": "^4.2.1",
+		"redux-devtools-extension": "^2.13.9",
+		"redux-thunk": "^2.4.2",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.0.2",
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
@@ -18,11 +29,11 @@
 		"build": "react-scripts build",
 		"test": "set CI=true &&react-scripts test --env=jsdom",
 		"eject": "react-scripts eject",
-		"eslint": "eslint --ext .js --ext .jsx src",
-		"eslint:fix": "eslint --fix --ext .js --ext .jsx src",
+		"eslint": "eslint --ext .ts --ext .tsx src",
+		"eslint:fix": "eslint --fix --ext .ts --ext .tsx src",
 		"test:nowatch": "react-scripts test --watchAll=false",
 		"prepare": "husky install",
-		"prepublish": "npm run eslint:fix"
+		"prepublish": "npm run eslint:fix && npm run test:nowatch"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -43,6 +54,9 @@
 		]
 	},
 	"devDependencies": {
+		"@testing-library/react": "^14.0.0",
+		"@types/jest": "^29.5.0",
+		"axios-mock-adapter": "^1.21.4",
 		"eslint": "^8.35.0",
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-prettier": "^8.7.0",
@@ -52,6 +66,14 @@
 		"eslint-plugin-react": "^7.32.2",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"husky": "^8.0.3",
-		"prettier": "^2.8.4"
+		"jest": "^27.5.1",
+		"moment": "^2.29.4",
+		"prettier": "^2.8.4",
+		"ts-jest": "^29.0.5"
+	},
+	"jest": {
+		"moduleNameMapper": {
+			"axios": "axios/dist/node/axios.cjs"
+		}
 	}
 }
