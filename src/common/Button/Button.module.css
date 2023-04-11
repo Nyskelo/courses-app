@@ -1,5 +1,5 @@
 button {
-	padding: 0 15px;
+	/* padding: 0 10px; */
 	background: transparent;
 	border: 1.5px solid #d90debb3;
 	cursor: pointer;
@@ -18,6 +18,9 @@ button {
 .small {
 	width: 100%;
 	max-width: 100px;
+}
+.x-small {
+	width: 35px;
 }
 
 button:active {

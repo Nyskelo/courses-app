@@ -1,7 +1,7 @@
-import Button from '../../../../common/Button/Button';
-import Input from '../../../../common/Input/Input';
+import Button from 'common/Button/Button';
+import Input from 'common/Input/Input';
 
-import { TypeSearchBar } from '../../../../types/types';
+import { TypeSearchBar } from 'types/types';
 
 import styles from './SearchBar.module.css';
 

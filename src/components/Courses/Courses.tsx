@@ -1,15 +1,21 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
-import Button from '../../common/Button/Button';
+import Button from 'common/Button/Button';
 
-import { TypeCourse } from '../../types/types';
+import { CourseID } from 'store/courses/coursesTypes';
+
+import { getAuthors, getCourses, useAppSelector } from 'store/storeTypes';
 
 import styles from './Courses.module.css';
 
-const Courses: React.FC<TypeCourse> = ({ courses, authorsList }) => {
+const Courses = () => {
 	const navigate = useNavigate();
+	const { courses } = useAppSelector(getCourses);
+	const authorsAPI = useAppSelector(getAuthors);
+
 	const [sortedCourses, setSortedCourses] = useState(courses);
 	const [searchInput, setSearchInput] = useState('');
 
@@ -17,7 +23,7 @@ const Courses: React.FC<TypeCourse> = ({ courses, authorsList }) => {
 		if (searchInput) {
 			const regex = new RegExp(searchInput, 'gi');
 			return courses.filter(
-				({ title, id }) => title.match(regex) || id.match(regex)
+				({ title, id }: CourseID) => title.match(regex) || id.match(regex)
 			);
 		}
 		return courses;
@@ -32,9 +38,6 @@ const Courses: React.FC<TypeCourse> = ({ courses, authorsList }) => {
 		!searchInput && setSortedCourses(getFilteredCourses);
 	}, [searchInput, getFilteredCourses]);
 
-	useEffect(() => {
-		localStorage.getItem('USER') ? navigate('/courses') : navigate('/login');
-	}, []);
 	return (
 		<>
 			<nav className={styles.nav}>
@@ -52,10 +55,15 @@ const Courses: React.FC<TypeCourse> = ({ courses, authorsList }) => {
 					text='Add new course'
 				/>
 			</nav>
-			<main className={styles.main}>
-				{sortedCourses.map((course) => (
-					<CourseCard {...course} key={course.id} authorsList={authorsList} />
-				))}
+			<main className={styles.main} data-testid='container'>
+				{sortedCourses &&
+					sortedCourses.map((course: CourseID) => (
+						<CourseCard
+							{...course}
+							key={course.id}
+							authorsList={authorsAPI.authors}
+						/>
+					))}
 			</main>
 		</>
 	);

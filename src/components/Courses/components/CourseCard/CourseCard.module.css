@@ -6,13 +6,18 @@
 	overflow: hidden;
 	border: 1.5px solid rgb(66, 166, 202);
 }
-.details__wrapper {
+.details__wrapper,
+.details__button__wrapper {
 	display: flex;
+}
+.details__wrapper {
 	flex-direction: column;
 	justify-content: space-between;
 }
-.details__wrapper button {
-	margin: 0 auto;
+
+.details__button__wrapper {
+	justify-content: center;
+	gap: 10px;
 }
 
 @media (max-width: 615px) {

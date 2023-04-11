@@ -1,49 +1,44 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import Button from '../../common/Button/Button';
-import Input from '../../common/Input/Input';
-import UserMessage from '../../common/UserMessage/UserMessage';
-import Loading from '../../common/Loading/Loading';
+import Button from 'common/Button/Button';
+import Input from 'common/Input/Input';
+import UserMessage from 'common/UserMessage/UserMessage';
 
-import { useFetch } from '../../hooks/index';
-import { formValidation } from '../../helpers';
-import { TypeRegistration } from '../../types/types';
+import { ERROR } from '../../constants';
+import { formValidation } from 'helpers';
+import { getUser, useAppSelector, useAppDispatch } from 'store/storeTypes';
+import { registerUser } from 'services';
 
 import styles from './Registration.module.css';
 
-const Registration: React.FC<TypeRegistration> = ({ ...props }) => {
+const Registration = () => {
+	const dispatch = useAppDispatch();
+	const user = useAppSelector(getUser);
 	const navigate = useNavigate();
 
-	const dataUser = {
-		name: props.user.name,
-		email: props.user.email,
-		password: props.user.password,
-	};
-
-	const userToFetch = useFetch({
-		method: 'post',
-		url: 'http://localhost:4000/register',
-		body: dataUser,
+	const [regUser, setRegUser] = useState({
+		name: '',
+		email: '',
+		password: '',
 	});
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (formValidation(dataUser, 'Please fill in valid data.')) {
-			userToFetch.setStart(true);
+		if (!formValidation(regUser, ERROR.msg_2)) {
+			return false;
 		}
+		dispatch(registerUser(regUser));
 	};
 
 	useEffect(() => {
-		if (userToFetch.status === 201) {
+		if (user.email) {
 			navigate('/login');
 		}
-	}, [userToFetch.status]);
+	}, [user.email]);
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit}>
-			{userToFetch.loading && <Loading />}
-
 			<h1>Registration</h1>
 
 			<Input
@@ -52,9 +47,9 @@ const Registration: React.FC<TypeRegistration> = ({ ...props }) => {
 				labelVisibility='display'
 				placeholder='Enter name'
 				name='name'
-				value={props.user.name}
+				value={regUser.name}
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-					props.setUser({ ...props.user, name: e.target.value })
+					setRegUser({ ...regUser, name: e.target.value })
 				}
 			/>
 
@@ -64,9 +59,9 @@ const Registration: React.FC<TypeRegistration> = ({ ...props }) => {
 				labelVisibility='display'
 				placeholder='Enter email'
 				name='email'
-				value={props.user.email}
+				value={regUser.email}
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-					props.setUser({ ...props.user, email: e.target.value })
+					setRegUser({ ...regUser, email: e.target.value })
 				}
 			/>
 
@@ -76,9 +71,9 @@ const Registration: React.FC<TypeRegistration> = ({ ...props }) => {
 				labelVisibility='display'
 				placeholder='Enter password'
 				name='password'
-				value={props.user.password}
+				value={regUser.password}
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-					props.setUser({ ...props.user, password: e.target.value })
+					setRegUser({ ...regUser, password: e.target.value })
 				}
 			/>
 			<Button width='medium' type='submit' text='Registration' />

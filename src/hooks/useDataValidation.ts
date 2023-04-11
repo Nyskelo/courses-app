@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 
-export const useDataValidation = (message: string, regex: RegExp) => {
-	const [state, setState] = useState({
-		value: '',
+export const useDataValidation = (
+	message: string,
+	regex: RegExp,
+	initValue?: string
+) => {
+	const [data, setData] = useState({
+		value: initValue || '',
 		error: false,
 		message: '',
 	});
 
-	const handleState = (
+	const checkIfValid = (
 		e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>
 	) => {
 		e.preventDefault();
@@ -15,14 +19,14 @@ export const useDataValidation = (message: string, regex: RegExp) => {
 		const value = target.value;
 		const check = value.match(regex);
 		if (check) {
-			setState((prev) => ({
+			setData((prev) => ({
 				...prev,
 				value: value,
 				error: false,
 			}));
 			return true;
 		} else {
-			setState((prev) => ({
+			setData((prev) => ({
 				...prev,
 				message: message,
 				error: true,
@@ -32,16 +36,16 @@ export const useDataValidation = (message: string, regex: RegExp) => {
 	};
 
 	useEffect(() => {
-		if (state.error) {
+		if (data.error) {
 			setTimeout(() => {
-				setState((prev) => ({
+				setData((prev) => ({
 					...prev,
 					message: '',
 					error: false,
 				}));
 			}, 1000);
 		}
-	}, [state.error]);
+	}, [data.error]);
 
-	return [handleState, state, setState];
+	return { checkIfValid, data, setData };
 };

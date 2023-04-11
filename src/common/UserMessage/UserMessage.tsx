@@ -1,4 +1,4 @@
-import { TypeUserMessage } from '../../types/types';
+import { TypeUserMessage } from 'types/types';
 
 import styles from './UserMessage.module.css';
 

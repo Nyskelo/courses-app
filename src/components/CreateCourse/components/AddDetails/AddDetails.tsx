@@ -1,58 +1,78 @@
+import { useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 import CreateAuthor from './components/CreateAuthor/CreateAuthor';
 import ListOfAuthors from './components/ListOfAuthors/ListOfAuthors';
-import Duration from './components/Duration/Duration';
 
-import * as fn from '../../../../helpers/index';
-import { TypeAddDetails, ValidState } from '../../../../types/types';
+import * as fn from 'helpers/index';
+import { useDataValidation } from 'hooks/index';
+import { ERROR, REGEX } from '../../../../constants';
+import { createAuthor } from 'store/authors/authorsCreators';
+import { Author } from 'store/authors/authorsTypes';
+import { TypeAddDetails } from 'types/types';
+import { getAuthors, useAppDispatch, useAppSelector } from 'store/storeTypes';
 
 import styles from './AddDetails.module.css';
 
 const AddDetails: React.FC<TypeAddDetails> = ({ ...props }) => {
-	const onClickCreateAuthor = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const dispatch = useAppDispatch();
+	const authorsStore = useAppSelector(getAuthors);
+	const isUpdating = window.location.pathname.match(/update/g);
+
+	const newName = useDataValidation(ERROR.msg_3, REGEX.name);
+
+	const onClickToCreateAuthor = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
-		if (!props.checkName.error && props.checkName.value.length >= 2) {
-			props.handleCheckName(e);
-			props.createAuthor(props.checkName.value);
-			props.setCheckName({ ...props.checkName, value: '' });
-		} else {
-			props.handleCheckName(e);
-			return;
+		newName.checkIfValid(e);
+		if (newName.data.value.length >= 2) {
+			const newAuthor: Author = {
+				id: uuidv4(),
+				name: newName.data.value,
+			};
+			newName.setData({ ...newName.data, value: '' });
+			dispatch(createAuthor(newAuthor));
 		}
 	};
 
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		props.handleCheckName(e);
-		props.setAuthorName(e);
-	};
+	useEffect(() => {
+		authorsStore.courseAuthors.length > 0 &&
+			props.setNewCourse((prev) => ({
+				...prev,
+				authors: fn.getArrayOfAuthorsIDs(authorsStore.courseAuthors),
+			}));
+	}, [authorsStore.courseAuthors]);
+
+	useEffect(() => {
+		if (isUpdating && !props.newCourse.title) {
+			props.setNewCourse({ ...props.newCourse });
+			newName.setData({
+				...newName.data,
+				value: 'Alla Oleksyn',
+			});
+		}
+	}, [isUpdating, props.newCourse.title]);
 
 	return (
 		<div className={styles.wrapper}>
 			<CreateAuthor
-				value={props.author}
-				onChange={onChange}
-				onClick={onClickCreateAuthor}
-				checkName={props.checkName as ValidState}
+				value={newName.data.value}
+				onChange={newName.checkIfValid}
+				onClick={onClickToCreateAuthor}
+				checkName={newName.data}
 			/>
 
 			<ListOfAuthors
 				textTitle='Authors'
 				textButton='Add author'
-				authors={props.state.authors}
-				onClick={props.addAuthor}
+				authors={authorsStore.authors}
 			/>
 
-			<Duration
-				onChange={props.handleDuration}
-				value={`${props.duration.value}`}
-				duration={props.duration as ValidState}
-				hours={fn.minutesToHoures(Number(props.duration.value))}
-			/>
+			{props.children}
 
 			<ListOfAuthors
 				textTitle='Course authors'
 				textButton='Delete author'
-				authors={props.state.courseAuthors}
-				onClick={props.deleteAuthor}
+				authors={authorsStore.courseAuthors}
 			/>
 		</div>
 	);

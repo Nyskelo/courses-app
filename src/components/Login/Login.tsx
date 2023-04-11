@@ -1,61 +1,44 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import Button from '../../common/Button/Button';
-import Input from '../../common/Input/Input';
-import UserMessage from '../../common/UserMessage/UserMessage';
-import Loading from '../../common/Loading/Loading';
+import Button from 'common/Button/Button';
+import Input from 'common/Input/Input';
+import UserMessage from 'common/UserMessage/UserMessage';
 
-import { useFetch } from '../../hooks/index';
-import { formValidation } from '../../helpers';
-import { TypeLogin } from '../../types/types';
+import { ERROR } from '../../constants';
+import { tokenName } from 'store/user/userTypes';
+import { formValidation } from 'helpers';
+import { getUser, useAppDispatch, useAppSelector } from 'store/storeTypes';
+import { loginUser } from 'services';
 
 import styles from './Login.module.css';
 
-const Login: React.FC<TypeLogin> = ({ ...props }) => {
+const Login = () => {
+	const user = useAppSelector(getUser);
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
-	const dataUser = {
-		name: props.user.name,
-		email: props.user.email,
-		password: props.user.password,
-	};
-	const [login, setLogin] = useState({
-		email: props.user.email,
-		password: props.user.password,
-	});
-
-	const tokenUser = useFetch({
-		method: 'post',
-		url: 'http://localhost:4000/login',
-		body: dataUser,
-		auth: { username: '', password: login.password },
+	const [logUser, setLogUser] = useState({
+		email: '',
+		password: '',
 	});
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!formValidation(login)) return;
 
-		props.setUser({
-			...props.user,
-			...login,
-		});
-		tokenUser.setStart(true);
+		if (!formValidation(logUser, ERROR.msg_1)) return;
+		dispatch(loginUser(logUser));
 	};
 
 	useEffect(() => {
-		if (tokenUser.status === 201) {
-			localStorage.setItem('USER', `${tokenUser.data}`);
-			localStorage.setItem('NAME', JSON.stringify(dataUser.name));
-			props.setUser({ ...props.user, isLoggedIn: true });
+		if (user.isAuth) {
+			localStorage.setItem(tokenName.USER, `${user.token}`);
 			navigate('/courses');
 		}
-	}, [tokenUser, navigate, props.user, props.setUser]);
+	}, [user.isAuth]);
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit}>
-			{tokenUser.loading && <Loading />}
-
 			<h1>Login</h1>
 
 			<Input
@@ -63,10 +46,10 @@ const Login: React.FC<TypeLogin> = ({ ...props }) => {
 				labelText='Email'
 				labelVisibility='display'
 				placeholder='Enter email'
-				value={login.email}
+				value={logUser.email}
 				name='login'
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-					setLogin({ ...login, email: e.target.value })
+					setLogUser({ ...logUser, email: e.target.value })
 				}
 			/>
 			<Input
@@ -74,10 +57,10 @@ const Login: React.FC<TypeLogin> = ({ ...props }) => {
 				labelText='Password'
 				labelVisibility='display'
 				placeholder='Enter password'
-				value={login.password}
+				value={logUser.password}
 				name='password'
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-					setLogin({ ...login, password: e.target.value })
+					setLogUser({ ...logUser, password: e.target.value })
 				}
 			/>
 			<Button width='medium' type='submit' text='Login' />

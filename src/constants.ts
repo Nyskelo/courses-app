@@ -1,15 +1,11 @@
-export const VALID = {
-	duration: {
-		messageError: 'Please match the requested format.',
-		regex: /^\d*$/g,
-	},
-	name: {
-		messageError: 'Please match the requested format.',
-		regex: /([A-Za-z]{1,}).*/g,
-	},
-	form: {
-		messageError: 'Please, fill in all fields.',
-	},
+export const REGEX = {
+	duration: /^\d*$/g,
+	name: /([A-Za-z]{1,}).*/g,
+};
+export const ERROR = {
+	msg_1: 'You have not registered, please register first',
+	msg_2: 'Please, fill in all fields.',
+	msg_3: 'Please match the requested format.',
 };
 
 export const mockedCoursesList = [

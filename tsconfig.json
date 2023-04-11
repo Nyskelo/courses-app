@@ -15,7 +15,6 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"jsx": "react-jsx",
-		// "baseUrl": "src"
 		"baseUrl": "src",
 		"paths": {
 			"@App/*": ["/*"],
@@ -30,9 +29,8 @@
 		"src/constants.ts",
 		"src/App.tsx"
 	],
-	"exclude": ["node_modules", "build"], // *** The files to not type check ***,
+	"exclude": ["node_modules", "build"],
 	"globals": {
-		// This is necessary because next.js forces { "jsx": "preserve" }, but ts-jest requires { "jsx": "react-jsx" }
 		"ts-jest": {
 			"tsconfig": {
 				"jsx": "react-jsx"

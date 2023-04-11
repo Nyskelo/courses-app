@@ -1,8 +1,8 @@
-import Input from '../../../../../../common/Input/Input';
-import Button from '../../../../../../common/Button/Button';
-import UserMessage from '../../../../../../common/UserMessage/UserMessage';
+import Input from 'common/Input/Input';
+import Button from 'common/Button/Button';
+import UserMessage from 'common/UserMessage/UserMessage';
 
-import { TypeCreateAuthor } from '../../../../../../types/types';
+import { TypeCreateAuthor } from 'types/types';
 
 import styles from './CreateAuthor.module.css';
 

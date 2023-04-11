@@ -1,7 +1,7 @@
-import UserMessage from '../../../../../../common/UserMessage/UserMessage';
-import Input from '../../../../../../common/Input/Input';
+import UserMessage from 'common/UserMessage/UserMessage';
+import Input from 'common/Input/Input';
 
-import { TypeDuration } from '../../../../../../types/types';
+import { TypeDuration } from 'types/types';
 
 import styles from './Duration.module.css';
 
@@ -25,7 +25,7 @@ const Duration: React.FC<TypeDuration> = ({ ...props }) => {
 			)}
 
 			<p>
-				Duration: <span className={styles.hours}>{props.hours}</span> hours
+				Duration: <span className={styles.hours}>{props.hours}</span>
 			</p>
 		</section>
 	);

@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import { Author } from './types';
+import { Author } from 'store/authors/authorsTypes';
 
 export type TypeUseAuthorsReducer = {
 	authors: Array<Author>;
@@ -11,13 +11,19 @@ export type TypeUseAuthorsReducerReturn =
 	| ((e: React.ChangeEvent<HTMLInputElement>) => void)
 	| ((id: string, name: string) => void);
 
+export enum Method {
+	GET = 'get',
+	POST = 'post',
+	PUT = 'put',
+	DELETE = 'delete',
+}
 export type TypeUseFetchReq = {
-	method: 'get' | 'post' | 'put' | 'delete';
+	method: Method;
 	url: string;
 	start?: boolean | undefined;
-	body?: object | undefined;
+	body?: object;
 	headers?: object;
-	auth?: object;
+	withCredentials?: boolean;
 };
 
 export type TypeUseFetchRes = {

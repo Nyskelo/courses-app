@@ -1,4 +1,4 @@
-import { TypeSectionMain } from '../../../../../../types/types';
+import { TypeSectionMain } from 'types/types';
 
 import styles from './SectionMain.module.css';
 

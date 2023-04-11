@@ -2,8 +2,8 @@ import SectionMain from './components/SectionMain/SectionMain';
 import SectionDetails from './components/SectionDetails/SectionDetails';
 import DetailsItem from './components/Item/Item';
 
-import * as fn from '../../../helpers/index';
-import { TypeInfoCard } from '../../../types/types';
+import * as fn from 'helpers/index';
+import { TypeInfoCard } from 'types/types';
 
 import styles from './InfoCard.module.css';
 
