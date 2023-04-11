@@ -1,7 +1,7 @@
 const SectionMain: React.FC<{
 	title?: string;
 	description: string;
-}> = ({ title, description }): JSX.Element => {
+}> = ({ title, description }) => {
 	return (
 		<section>
 			<h1>{title}</h1>

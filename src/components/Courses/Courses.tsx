@@ -8,10 +8,7 @@ import { TypeCourse } from '../../types/types';
 
 import styles from './Courses.module.css';
 
-const Courses: React.FC<TypeCourse> = ({
-	courses,
-	authorsList,
-}): JSX.Element => {
+const Courses: React.FC<TypeCourse> = ({ courses, authorsList }) => {
 	const navigate = useNavigate();
 	const [sortedCourses, setSortedCourses] = useState(courses);
 	const [searchInput, setSearchInput] = useState('');

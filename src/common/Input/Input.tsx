@@ -7,7 +7,7 @@ const Input: React.FC<TypeInput> = ({
 	labelText,
 	labelVisibility,
 	...props
-}): JSX.Element => {
+}) => {
 	return (
 		<div>
 			<label htmlFor={name} className={styles[labelVisibility]}>

@@ -4,7 +4,7 @@ import { TypeAuthor } from '../../../../../../../../types/types';
 
 import styles from './Author.module.css';
 
-const Author: React.FC<TypeAuthor> = ({ ...props }): JSX.Element => {
+const Author: React.FC<TypeAuthor> = ({ ...props }) => {
 	return (
 		<div className={styles.element}>
 			<h3>{props.name}</h3>

@@ -5,7 +5,7 @@ import { TypeSearchBar } from '../../../../types/types';
 
 import styles from './SearchBar.module.css';
 
-const SearchBar: React.FC<TypeSearchBar> = ({ ...props }): JSX.Element => {
+const SearchBar: React.FC<TypeSearchBar> = ({ ...props }) => {
 	return (
 		<form className={styles.form} onSubmit={props.onSubmit}>
 			<Input

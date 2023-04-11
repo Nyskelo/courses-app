@@ -9,7 +9,7 @@ import { TypeHeader } from '../../types/types';
 import styles from './Header.module.css';
 import { useEffect } from 'react';
 
-const Header: React.FC<TypeHeader> = ({ ...props }): JSX.Element => {
+const Header: React.FC<TypeHeader> = ({ ...props }) => {
 	const navigate = useNavigate();
 
 	const logout = (e: React.MouseEvent<HTMLButtonElement>) => {

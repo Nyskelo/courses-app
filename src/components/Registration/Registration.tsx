@@ -12,9 +12,7 @@ import { TypeRegistration } from '../../types/types';
 
 import styles from './Registration.module.css';
 
-const Registration: React.FC<TypeRegistration> = ({
-	...props
-}): JSX.Element => {
+const Registration: React.FC<TypeRegistration> = ({ ...props }) => {
 	const navigate = useNavigate();
 
 	const dataUser = {

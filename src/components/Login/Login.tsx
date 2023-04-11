@@ -12,7 +12,7 @@ import { TypeLogin } from '../../types/types';
 
 import styles from './Login.module.css';
 
-const Login: React.FC<TypeLogin> = ({ ...props }): JSX.Element => {
+const Login: React.FC<TypeLogin> = ({ ...props }) => {
 	const navigate = useNavigate();
 
 	const dataUser = {

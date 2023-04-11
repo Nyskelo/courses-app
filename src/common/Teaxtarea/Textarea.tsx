@@ -7,7 +7,7 @@ const Textarea: React.FC<TypeTextarea> = ({
 	labelVisibility,
 	labelText,
 	...props
-}): JSX.Element => {
+}) => {
 	return (
 		<>
 			<label htmlFor={name} className={styles[labelVisibility]}>

@@ -14,9 +14,7 @@ import { TypeCreateCourse, TypeAddDetails } from '../../types/types';
 
 import styles from './CreateCourse.module.css';
 
-const CreateCourse: React.FC<TypeCreateCourse> = ({
-	...props
-}): JSX.Element => {
+const CreateCourse: React.FC<TypeCreateCourse> = ({ ...props }) => {
 	const navigate = useNavigate();
 	const [inputs, setInputs] = useState({ title: '', descriptions: '' });
 

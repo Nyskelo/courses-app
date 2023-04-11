@@ -4,7 +4,7 @@ import { TypeAddTitle } from '../../../../types/types';
 
 import styles from './AddTitle.module.css';
 
-const AddTitle: React.FC<TypeAddTitle> = ({ value, onChange }): JSX.Element => {
+const AddTitle: React.FC<TypeAddTitle> = ({ value, onChange }) => {
 	return (
 		<div className={styles.wrapper}>
 			<Input

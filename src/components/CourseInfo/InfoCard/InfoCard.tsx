@@ -7,7 +7,7 @@ import { TypeInfoCard } from '../../../types/types';
 
 import styles from './InfoCard.module.css';
 
-const InfoCard: React.FC<TypeInfoCard> = ({ ...props }): JSX.Element => {
+const InfoCard: React.FC<TypeInfoCard> = ({ ...props }) => {
 	return (
 		<div className={styles.main__wrapper}>
 			<SectionMain description={props.description} />

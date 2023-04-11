@@ -6,9 +6,7 @@ import { TypeCreateAuthor } from '../../../../../../types/types';
 
 import styles from './CreateAuthor.module.css';
 
-const CreateAuthor: React.FC<TypeCreateAuthor> = ({
-	...props
-}): JSX.Element => {
+const CreateAuthor: React.FC<TypeCreateAuthor> = ({ ...props }) => {
 	return (
 		<div className={styles.form}>
 			<h1 className={styles.title}>Author</h1>
