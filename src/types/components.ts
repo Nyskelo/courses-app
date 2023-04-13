@@ -1,5 +1,4 @@
 import { Author } from 'store/authors/authorsTypes';
-import { CourseID } from 'store/courses/coursesTypes';
 
 export type TypeInfoCard = {
 	description: string;
@@ -31,14 +30,13 @@ export type TypeSearchBar = {
 };
 
 export type TypeAddTitle = {
-	newCourse: CourseID;
-	setNewCourse: (value: React.SetStateAction<CourseID>) => void;
+	title: string;
+	setTitle: (value: React.SetStateAction<string>) => void;
 	text: string;
 };
 
 export type TypeAddDetails = {
-	newCourse: CourseID;
-	setNewCourse: (value: React.SetStateAction<CourseID>) => void;
+	setAuthors: (value: React.SetStateAction<string[]>) => void;
 	children: JSX.Element;
 };
 
@@ -83,6 +81,6 @@ export type TypeCreateAuthor = {
 };
 
 export type TypeAddDescriptions = {
-	newCourse: CourseID;
-	setNewCourse: (value: React.SetStateAction<CourseID>) => void;
+	description: string;
+	setDescription: (value: React.SetStateAction<string>) => void;
 };

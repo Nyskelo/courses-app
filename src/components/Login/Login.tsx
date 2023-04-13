@@ -9,7 +9,7 @@ import { ERROR } from '../../constants';
 import { tokenName } from 'store/user/userTypes';
 import { formValidation } from 'helpers';
 import { getUser, useAppDispatch, useAppSelector } from 'store/storeTypes';
-import { loginUser } from 'services';
+import { loginUser } from 'store/user/userThunk';
 
 import styles from './Login.module.css';
 

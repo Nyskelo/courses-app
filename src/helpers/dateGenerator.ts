@@ -6,5 +6,6 @@ export const dateGenerator = (date: string | Date): string => {
 		month: 'numeric',
 		year: 'numeric',
 	});
+
 	return ddmmyyyy;
 };

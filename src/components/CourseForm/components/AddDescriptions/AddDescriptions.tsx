@@ -13,13 +13,8 @@ const AddDescriptions: React.FC<TypeAddDescriptions> = ({ ...props }) => {
 				name='description'
 				labelText='Description'
 				labelVisibility='display'
-				value={props.newCourse.description}
-				onChange={(e) =>
-					props.setNewCourse((prev) => ({
-						...prev,
-						description: e.target.value,
-					}))
-				}
+				value={props.description}
+				onChange={(e) => props.setDescription(e.target.value)}
 				rows='5'
 			/>
 		</div>

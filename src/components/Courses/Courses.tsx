@@ -7,7 +7,12 @@ import Button from 'common/Button/Button';
 
 import { CourseID } from 'store/courses/coursesTypes';
 
-import { getAuthors, getCourses, useAppSelector } from 'store/storeTypes';
+import {
+	getAuthors,
+	getCourses,
+	getUser,
+	useAppSelector,
+} from 'store/storeTypes';
 
 import styles from './Courses.module.css';
 
@@ -15,6 +20,7 @@ const Courses = () => {
 	const navigate = useNavigate();
 	const { courses } = useAppSelector(getCourses);
 	const authorsAPI = useAppSelector(getAuthors);
+	const user = useAppSelector(getUser);
 
 	const [sortedCourses, setSortedCourses] = useState(courses);
 	const [searchInput, setSearchInput] = useState('');
@@ -48,12 +54,14 @@ const Courses = () => {
 					}
 					value={searchInput}
 				/>
-				<Button
-					type='button'
-					width='large'
-					onClick={() => navigate('/courses/add')}
-					text='Add new course'
-				/>
+				{user.role === 'admin' && (
+					<Button
+						type='button'
+						width='large'
+						onClick={() => navigate('/courses/add')}
+						text='Add new course'
+					/>
+				)}
 			</nav>
 			<main className={styles.main} data-testid='container'>
 				{sortedCourses &&

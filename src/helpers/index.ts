@@ -2,6 +2,7 @@ import { dateGenerator } from './dateGenerator';
 import { searchFilter } from './searchFilter';
 import { formValidation } from './formValidation';
 import { minutesToHoures } from './pipeDuration';
+import { localStorageRemoveItem } from './localStorage';
 import {
 	authorsArrayLength,
 	getArrayOfAuthorsIDs,
@@ -16,4 +17,5 @@ export {
 	authorsArrayLength,
 	getArrayOfAuthorsIDs,
 	nameReadyToValidation,
+	localStorageRemoveItem,
 };

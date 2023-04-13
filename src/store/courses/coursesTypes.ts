@@ -4,6 +4,7 @@ export const enum actions {
 	GET_COURSES = 'GET_COURSES',
 	SAVE_COURSE = 'CREATE_OR_UPDATE_COURSE',
 	DELETE_COURSE = 'DELETE_COURSE',
+	UPDATE_COURSE = 'UPDATE_COURSE',
 }
 export type CoursesAction = CreateAction<CourseID[]>;
 

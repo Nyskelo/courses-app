@@ -7,10 +7,11 @@ import Courses from './components/Courses/Courses';
 import CourseInfo from './components/CourseInfo/CourseInfo';
 import Loading from './common/Loading/Loading';
 import RequireAuth from './components/Auth/RequireAuth';
-import CreateCourse from 'components/CreateCourse/CreateCourse';
+import CourseForm from 'components/CourseForm/CourseForm';
 
 import { getStatus, useAppSelector } from './store/storeTypes';
 import { status } from './store/state/stateTypes';
+import PrivateRoute from 'components/PrivateRouter/PrivateRouter';
 
 const App = () => {
 	const isLoading = useAppSelector(getStatus);
@@ -28,8 +29,11 @@ const App = () => {
 				<Route element={<RequireAuth />}>
 					<Route path='/courses/:courseId' element={<CourseInfo />} />
 					<Route path='/courses' element={<Courses />} />
-					<Route path='/courses/add' element={<CreateCourse />} />
-					<Route path='/courses/update/:courseId' element={<CreateCourse />} />
+
+					<Route path='/' element={<PrivateRoute />}>
+						<Route path='/courses/add' element={<CourseForm />} />
+						<Route path='/courses/update/:courseId' element={<CourseForm />} />
+					</Route>
 				</Route>
 			</Routes>
 		</Router>

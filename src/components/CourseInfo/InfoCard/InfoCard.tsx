@@ -17,10 +17,7 @@ const InfoCard: React.FC<TypeInfoCard> = ({ ...props }) => {
 					title='Duration:'
 					value={fn.minutesToHoures(props.duration)}
 				/>
-				<DetailsItem
-					title='Created:'
-					value={fn.dateGenerator(props.creationDate)}
-				/>
+				<DetailsItem title='Created:' value={props.creationDate} />
 				<DetailsItem
 					title='Authors:'
 					value={fn.searchFilter(props.authorsList, props.authors)}

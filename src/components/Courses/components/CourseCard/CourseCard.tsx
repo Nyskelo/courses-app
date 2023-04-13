@@ -6,15 +6,31 @@ import SectionDetails from './components/SectionDetails/SectionDetails';
 import DetailsItem from './components/Item/Item';
 
 import * as fn from 'helpers/index';
-import { TypeCourseCard } from 'types/types';
-import { useAppDispatch } from 'store/storeTypes';
-import { deleteCourse } from 'store/courses/coursesCreators';
+import { database, TypeCourseCard } from 'types/types';
+import { getUser, useAppDispatch, useAppSelector } from 'store/storeTypes';
+import { deleteCourseThunk } from 'store/courses/coursesThunk';
 
 import styles from './CourseCard.module.css';
+import { actions } from 'store/courses/coursesTypes';
+import { api } from 'services';
 
 const CourseCard: React.FC<TypeCourseCard> = ({ ...props }) => {
 	const dispatch = useAppDispatch();
+	const user = useAppSelector(getUser);
 	const navigate = useNavigate();
+
+	const getCourseToUpdateFromApi = async (id: string) => {
+		const response = await api('get', database.GET_COURSE + `${id}`);
+		if (response) {
+			localStorage.setItem(
+				actions.UPDATE_COURSE,
+				JSON.stringify(response.data.result)
+			);
+			navigate(`/courses/update/${props.id}`);
+		} else {
+			navigate('/courses/');
+		}
+	};
 
 	return (
 		<div className={styles.main__wrapper} data-testid='card'>
@@ -30,10 +46,7 @@ const CourseCard: React.FC<TypeCourseCard> = ({ ...props }) => {
 						title='Duration:'
 						value={fn.minutesToHoures(props.duration)}
 					/>
-					<DetailsItem
-						title='Created:'
-						value={fn.dateGenerator(props.creationDate)}
-					/>
+					<DetailsItem title='Created:' value={props.creationDate} />
 				</SectionDetails>
 				<div className={styles.details__button__wrapper}>
 					<Button
@@ -42,25 +55,25 @@ const CourseCard: React.FC<TypeCourseCard> = ({ ...props }) => {
 						text='Show course'
 						onClick={() => navigate(`/courses/${props.id}`)}
 					/>
-					<Button type='button' width='x-small' title='update' text='✏️' />
-					<Button
-						type='button'
-						width='x-small'
-						title='delete'
-						text='🗑️'
-						onClick={() =>
-							dispatch(
-								deleteCourse({
-									title: props.title,
-									description: props.description,
-									duration: props.duration,
-									creationDate: props.creationDate,
-									authors: props.authors,
-									id: props.id,
-								})
-							)
-						}
-					/>
+					{user.role === 'admin' && (
+						<>
+							<Button
+								type='button'
+								width='x-small'
+								title='update'
+								text='✏️'
+								onClick={() => getCourseToUpdateFromApi(props.id)}
+							/>
+
+							<Button
+								type='button'
+								width='x-small'
+								title='delete'
+								text='🗑️'
+								onClick={() => dispatch(deleteCourseThunk(props.id))}
+							/>
+						</>
+					)}
 				</div>
 			</div>
 		</div>

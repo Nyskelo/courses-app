@@ -16,6 +16,7 @@ export type UserState = {
 	name: string;
 	email: string;
 	token: string;
+	role: string;
 };
 export type UserAction = CreateAction<UserState>;
 

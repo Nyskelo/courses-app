@@ -7,7 +7,7 @@ import { Logo } from './components/Logo/Logo';
 
 import { getUser, useAppDispatch, useAppSelector } from 'store/storeTypes';
 import { tokenName } from 'store/user/userTypes';
-import { loginUser, logoutUser } from 'services';
+import { loginUser, logoutUser } from 'store/user/userThunk';
 
 import styles from './Header.module.css';
 
