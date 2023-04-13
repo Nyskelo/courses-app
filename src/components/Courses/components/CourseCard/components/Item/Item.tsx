@@ -1,4 +1,4 @@
-import { TypeDetailsItem } from '../../../../../../types/types';
+import { TypeDetailsItem } from 'types/types';
 
 import styles from './Item.module.css';
 

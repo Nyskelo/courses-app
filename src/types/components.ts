@@ -1,9 +1,5 @@
-import { Course, Author, ValidState, User } from './types';
-
-export type TypeCourse = {
-	courses: Array<Course>;
-	authorsList: Array<Author>;
-};
+import { Author } from 'store/authors/authorsTypes';
+import { CourseID } from 'store/courses/coursesTypes';
 
 export type TypeInfoCard = {
 	description: string;
@@ -34,31 +30,16 @@ export type TypeSearchBar = {
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export type TypeCreateCourse = {
-	courses: Array<Course>;
-	authorsList: Array<Author>;
-	setCourses: (value: React.SetStateAction<Array<Course>>) => void;
-	setAuthorsList: (value: React.SetStateAction<Array<Author>>) => void;
-	user: boolean;
-};
-
 export type TypeAddTitle = {
-	value: string;
-	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	newCourse: CourseID;
+	setNewCourse: (value: React.SetStateAction<CourseID>) => void;
+	text: string;
 };
 
 export type TypeAddDetails = {
-	state: { authors: Array<Author>; courseAuthors: Array<Author> };
-	author: string;
-	setAuthorName: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	createAuthor: (name: string) => boolean;
-	addAuthor: (id: string, name: string) => void;
-	deleteAuthor: (id: string, name: string) => void;
-	handleDuration: (event: React.MouseEvent<HTMLButtonElement>) => boolean;
-	duration: ValidState;
-	handleCheckName: (event: React.ChangeEvent<HTMLInputElement>) => boolean;
-	checkName: ValidState;
-	setCheckName: (value: React.SetStateAction<ValidState>) => void;
+	newCourse: CourseID;
+	setNewCourse: (value: React.SetStateAction<CourseID>) => void;
+	children: JSX.Element;
 };
 
 export type TypeSectionMain = {
@@ -73,20 +54,21 @@ export type TypeDetailsItem = {
 
 export type TypeListOfAuthors = {
 	authors: Array<Author>;
-	onClick: (id: string, name: string) => void;
 	textTitle: string;
 	textButton: string;
 };
 
 export type TypeAuthor = {
+	author: Author;
 	name: string;
-	onClick: (id: string, name: string) => void;
 	text: string;
+	id: string;
+	deleteButton: boolean;
 };
 
 export type TypeDuration = {
 	value: string;
-	onChange: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => boolean;
+	onChange: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	duration: { value: string | number; error: boolean; message: string };
 	hours: string;
 };
@@ -101,21 +83,6 @@ export type TypeCreateAuthor = {
 };
 
 export type TypeAddDescriptions = {
-	value: string;
-	onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-};
-
-export type TypeHeader = {
-	user: User;
-	setUser: (value: React.SetStateAction<User>) => void;
-};
-
-export type TypeLogin = {
-	user: User;
-	setUser: (value: React.SetStateAction<User>) => void;
-};
-
-export type TypeRegistration = {
-	user: User;
-	setUser: (value: React.SetStateAction<User>) => void;
+	newCourse: CourseID;
+	setNewCourse: (value: React.SetStateAction<CourseID>) => void;
 };

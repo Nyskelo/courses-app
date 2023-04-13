@@ -4,7 +4,7 @@ export type TypeButton = {
 	width: string;
 };
 
-export type TypeButtonExtra =
+type TypeButtonExtra =
 	| React.HTMLAttributes<HTMLButtonElement>
 	| string
 	| (() => void)
@@ -29,7 +29,8 @@ type TypeInputExtra =
 	| (() => void)
 	| ((e: React.ChangeEvent<HTMLInputElement>) => void)
 	| ((e: React.ChangeEvent<HTMLInputElement>) => boolean)
-	| ((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => boolean);
+	| ((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => boolean)
+	| ((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void);
 
 export type TypeTextarea = {
 	[key: string]: string | ((e: React.ChangeEvent<HTMLTextAreaElement>) => void);

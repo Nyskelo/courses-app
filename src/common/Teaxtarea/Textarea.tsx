@@ -1,4 +1,4 @@
-import { TypeTextarea } from '../../types/types';
+import { TypeTextarea } from 'types/types';
 
 import styles from './Textarea.module.css';
 

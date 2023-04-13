@@ -1,4 +1,4 @@
-import { TypeSectionDetails } from '../../../../../types/types';
+import { TypeSectionDetails } from 'types/types';
 
 import styles from './SectionDetails.module.css';
 

@@ -5,97 +5,92 @@ import { v4 as uuidv4 } from 'uuid';
 import AddTitle from './components/AddTitle/AddTitle';
 import AddDescriptions from './components/AddDescriptions/AddDescriptions';
 import AddDetails from './components/AddDetails/AddDetails';
-import Button from '../../common/Button/Button';
+import Button from 'common/Button/Button';
+import Duration from './components/AddDetails/components/Duration/Duration';
 
-import { VALID } from '../../constants';
-import * as fn from '../../helpers/index';
-import { useAuthorsReducer, useDataValidation } from '../../hooks/index';
-import { TypeCreateCourse, TypeAddDetails } from '../../types/types';
+import { ERROR, REGEX } from '../../constants';
+import * as fn from 'helpers/index';
+import { useDataValidation } from 'hooks';
+import { CourseID } from 'store/courses/coursesTypes';
+import { getAuthors, useAppDispatch, useAppSelector } from 'store/storeTypes';
+import { createCourse } from 'store/courses/coursesCreators';
+import { cleareList } from 'store/authors/authorsCreators';
 
 import styles from './CreateCourse.module.css';
 
-const CreateCourse: React.FC<TypeCreateCourse> = ({ ...props }) => {
+const CreateCourse = () => {
 	const navigate = useNavigate();
-	const [inputs, setInputs] = useState({ title: '', descriptions: '' });
+	const dispatch = useAppDispatch();
+	const authorsList = useAppSelector(getAuthors);
 
-	const [handleDuration, duration] = useDataValidation(
-		VALID.duration.messageError,
-		VALID.duration.regex
-	);
-	const [handleCheckName, checkName, setCheckName] = useDataValidation(
-		VALID.name.messageError,
-		VALID.name.regex
-	);
+	const duration = useDataValidation(ERROR.msg_3, REGEX.duration);
 
-	const [state, author, setAuthorName, createAuthor, addAuthor, deleteAuthor] =
-		useAuthorsReducer({
-			authors: props.authorsList,
-			setAuthors: props.setAuthorsList,
-		});
+	const [newCourse, setNewCourse] = useState<CourseID>({
+		id: uuidv4(),
+		title: '',
+		description: '',
+		creationDate: fn.dateGenerator(new Date()),
+		duration: 0,
+		authors: [],
+	});
 
-	const validDataForm = {
-		title: inputs.title.length >= 2,
-		descripthions: inputs.descriptions.length >= 2,
-		duration:
-			Number(Object.values(duration).filter((value) => Number(value))) >= 1,
-		authors: Object.values(state)[1].length > 0,
-	};
-
-	const createCourse = (e: React.FormEvent<HTMLFormElement>) => {
+	const addNewCourse = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
-		if (fn.formValidation(validDataForm, VALID.form.messageError)) {
-			props.setCourses([
-				...props.courses,
-				{
-					id: uuidv4(),
-					title: inputs.title,
-					description: inputs.descriptions,
-					creationDate: fn.dateGenerator(new Date()),
-					duration: Number(
-						Object.values(duration).filter((value) => Number(value))
-					),
-					authors: Object.values(state).map(({ id }) => id),
-				},
-			]);
+		const validCourseIf = {
+			title: newCourse.title.length >= 2,
+			description: newCourse.description.length >= 2,
+			duration: newCourse.duration > 0,
+			authors: fn.authorsArrayLength(authorsList.courseAuthors) > 0,
+		};
+		if (fn.formValidation(validCourseIf, ERROR.msg_2)) {
+			dispatch(cleareList(authorsList.courseAuthors));
+			dispatch(createCourse(newCourse));
 			return true;
 		}
-	};
-
-	const propsForAddDetails = {
-		state,
-		author,
-		setAuthorName,
-		createAuthor,
-		addAuthor,
-		deleteAuthor,
-		handleDuration,
-		duration,
-		handleCheckName,
-		checkName,
-		setCheckName,
+		return false;
 	};
 
 	useEffect(() => {
-		!localStorage.getItem('USER') && navigate('/login');
-	}, []);
+		setNewCourse((prev) => ({
+			...prev,
+			duration: Number(duration.data.value),
+		}));
+	}, [duration.data.value]);
 
 	return (
-		<form
-			className={styles.wrapper}
-			onSubmit={(e) => createCourse(e) && navigate('/courses')}
-		>
-			<AddTitle
-				value={inputs.title}
-				onChange={(e) => setInputs({ ...inputs, title: e.target.value })}
-			/>
-			<Button width='large' type='submit' text='Create course' />
-			<AddDescriptions
-				value={inputs.descriptions}
-				onChange={(e) => setInputs({ ...inputs, descriptions: e.target.value })}
-			/>
-			<AddDetails {...(propsForAddDetails as TypeAddDetails)}></AddDetails>
-		</form>
+		<>
+			<div className={styles.back}>
+				<Button
+					type='submit'
+					width='largt'
+					text='< Back to courses'
+					onClick={() => navigate('/courses')}
+				/>
+			</div>
+			<form
+				className={styles.wrapper}
+				onSubmit={(e) => addNewCourse(e) && navigate('/courses')}
+			>
+				<AddTitle
+					newCourse={newCourse}
+					setNewCourse={setNewCourse}
+					text='Create course'
+				/>
+
+				<Button width='large' type='submit' text='Create course' />
+
+				<AddDescriptions newCourse={newCourse} setNewCourse={setNewCourse} />
+
+				<AddDetails newCourse={newCourse} setNewCourse={setNewCourse}>
+					<Duration
+						onChange={duration.checkIfValid}
+						value={`${duration.data.value}`}
+						duration={duration.data}
+						hours={fn.minutesToHoures(Number(duration.data.value))}
+					/>
+				</AddDetails>
+			</form>
+		</>
 	);
 };
 

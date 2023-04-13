@@ -1,4 +1,4 @@
-import { TypeInput } from '../../types/types';
+import { TypeInput } from 'types/types';
 
 import styles from './Input.module.css';
 

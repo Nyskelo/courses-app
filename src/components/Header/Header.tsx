@@ -1,42 +1,47 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Button from '../../common/Button/Button';
-import UserMessage from '../../common/UserMessage/UserMessage';
+import Button from 'common/Button/Button';
+import UserMessage from 'common/UserMessage/UserMessage';
 import { Logo } from './components/Logo/Logo';
 
-import { TypeHeader } from '../../types/types';
+import { getUser, useAppDispatch, useAppSelector } from 'store/storeTypes';
+import { tokenName } from 'store/user/userTypes';
+import { loginUser, logoutUser } from 'services';
 
 import styles from './Header.module.css';
-import { useEffect } from 'react';
 
-const Header: React.FC<TypeHeader> = ({ ...props }) => {
+const Header = () => {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const user = useAppSelector(getUser);
+
+	const token = localStorage.getItem(tokenName.USER);
 
 	const logout = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		localStorage.removeItem('USER');
-		props.setUser({ ...props.user, isLoggedIn: false });
-		navigate('/login');
+		dispatch(logoutUser());
 	};
 
 	useEffect(() => {
-		localStorage.getItem('USER') && navigate('/courses');
+		!user.isAuth && !token && navigate('/login');
+	}, [user.isAuth]);
 
-		!props.user.isLoggedIn &&
-			!localStorage.getItem('USER') &&
-			navigate('/registration');
+	useEffect(() => {
+		dispatch(loginUser());
+
+		!user.isAuth && !token && navigate('/registration');
+
+		token && navigate('/courses');
 	}, []);
 
 	return (
 		<header className={styles.wrapper}>
 			<Logo />
 
-			{props.user.isLoggedIn && (
+			{user.isAuth && (
 				<>
-					<UserMessage
-						messageType='userName'
-						text={props.user && props.user.name}
-					/>
+					<UserMessage messageType='userName' text={user && user.name} />
 					<Button width='small' text='Logout' onClick={logout} />
 				</>
 			)}
