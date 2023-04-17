@@ -8,7 +8,7 @@ import UserMessage from 'common/UserMessage/UserMessage';
 import { ERROR } from '../../constants';
 import { formValidation } from 'helpers';
 import { getUser, useAppSelector, useAppDispatch } from 'store/storeTypes';
-import { registerUser } from 'services';
+import { registerUser } from 'store/user/userThunk';
 
 import styles from './Registration.module.css';
 

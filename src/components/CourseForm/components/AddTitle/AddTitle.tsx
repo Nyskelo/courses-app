@@ -10,9 +10,9 @@ const AddTitle: React.FC<TypeAddTitle> = ({ ...props }) => {
 			<Input
 				type='text'
 				placeholder='Enter title...'
-				value={props.newCourse.title}
+				value={props.title}
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-					props.setNewCourse((prev) => ({ ...prev, title: e.target.value }))
+					props.setTitle(e.target.value)
 				}
 				labelVisibility='display'
 				labelText='Title'
