@@ -60,6 +60,7 @@ const Courses = () => {
 						width='large'
 						onClick={() => navigate('/courses/add')}
 						text='Add new course'
+						data-testid='add-course'
 					/>
 				)}
 			</nav>
