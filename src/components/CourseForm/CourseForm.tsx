@@ -102,7 +102,12 @@ const CourseForm = () => {
 				<AddTitle title={title} setTitle={setTitle} text='Create course' />
 
 				{!courseId ? (
-					<Button width='large' type='submit' text='Create course' />
+					<Button
+						width='large'
+						type='submit'
+						text='Create course'
+						data-testid='create-course'
+					/>
 				) : (
 					<Button width='large' type='submit' text='Update course' />
 				)}
